@@ -34,6 +34,7 @@ public class TestHttpSignature {
 
 	@Test
 	public void testGet() throws Exception {
+		System.out.println("Testing HTTP Get with a custom header X-Example, date and Digest headers");
 		try (CloseableHttpClient httpclient = HttpClients.createDefault();) {
 			HttpGet httpGet = new HttpGet(Constants.URL);
 			SignatureBuilder builder = SignatureBuilder.newInstance();
@@ -75,6 +76,7 @@ public class TestHttpSignature {
 
 	@Test
 	public void testPost() throws Exception {
+		System.out.println("Testing HTTP POST with a custom header X-Example, date and Digest headers and a simple JSON request body");
 		try (CloseableHttpClient httpclient = HttpClients.createDefault();) {
 			HttpPost httpPost = new HttpPost(Constants.URL);
 			SignatureBuilder builder = SignatureBuilder.newInstance();
@@ -116,6 +118,7 @@ public class TestHttpSignature {
 
 	@Test
 	public void testPut() throws Exception {
+		System.out.println("Testing HTTP PUT with a custom header X-Example, date and Digest headers and a simple JSON request body");
 		try (CloseableHttpClient httpclient = HttpClients.createDefault();) {
 			HttpPut httpPut = new HttpPut(Constants.URL);
 			SignatureBuilder builder = SignatureBuilder.newInstance();
@@ -158,6 +161,7 @@ public class TestHttpSignature {
 
 	@Test
 	public void testDelete() throws Exception {
+		System.out.println("Testing HTTP DELETE with a custom header X-Example, date and Digest headers");
 		try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 			HttpDelete httpDelete = new HttpDelete(Constants.URL);
 			SignatureBuilder builder = SignatureBuilder.newInstance();

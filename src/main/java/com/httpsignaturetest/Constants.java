@@ -1,5 +1,9 @@
 package com.httpsignaturetest;
 
+/**
+ * Interface holding constant values
+ *
+ */
 public interface Constants {
 	public static final String URL = "https://staging.authservices.satispay.com/wally-services/protocol/tests/signature";
 	public static final String PATH = "/wally-services/protocol/tests/signature";

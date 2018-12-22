@@ -3,6 +3,7 @@ package com.httpsignaturetest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
 import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
@@ -16,6 +17,7 @@ import org.apache.commons.io.IOUtils;
  * file
  */
 public class Encryptor {
+
 	private static final String PRIVATE_KEY_FILE_PATH = "client-rsa-private-key.pem";
 
 	private static String signSHA256RSA(String input) throws Exception {
@@ -37,6 +39,14 @@ public class Encryptor {
 		return Base64.getEncoder().encodeToString(s);
 	}
 
+	/**
+	 * Generates the encrypted http Signature
+	 * 
+	 * @param requestTarget the value of the (request-target) header
+	 * @param headers       the map holding HTTP header names and values
+	 * @return the encrypted http signature
+	 * @throws Exception in case an error occurs
+	 */
 	public static String encryptSignature(String requestTarget, Map<String, String> headers) throws Exception {
 		String signature = "(request-target): ".concat(requestTarget);
 		for (String headerName : headers.keySet()) {
@@ -46,8 +56,15 @@ public class Encryptor {
 		return signSHA256RSA(signature);
 	}
 
-	public static String generateRandomDigest() {
-		return Base64.getEncoder()
-				.encodeToString(UUID.randomUUID().toString().getBytes());
+	/**
+	 * Generates a random SHA-256 Digest
+	 * 
+	 * @return a Random SHA-256 digest computed from a random UUID
+	 * @throws Exception in case an error occurs
+	 */
+	public static String generateRandomDigest() throws Exception {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		return "SHA-256"
+				.concat(Base64.getEncoder().encodeToString(digest.digest(UUID.randomUUID().toString().getBytes())));
 	}
 }
